@@ -42,3 +42,28 @@ variable "email" {
   type        = string
   description = "Email"
 }
+
+variable "service_account_build_id" {
+  type        = string
+  description = "Service Account ID of Cloud Build"
+}
+
+variable "trigger_branch_name" {
+  type        = string
+  description = "Name of git branch that a push triggers build"
+}
+
+variable "github_username" {
+  type        = string
+  description = "Username of github"
+}
+
+variable "github_repo_name" {
+  type        = string
+  description = "Name of repository on github"
+}
+
+variable "connection_name_gcp_github" {
+  type        = string
+  description = "Name of the connection from github to gcp (manually created beforhand)"
+}
