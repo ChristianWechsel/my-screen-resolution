@@ -63,9 +63,9 @@ export function createHelloWorldRouter(
 
   router.get(
     "/files/download/:fileName",
-    async (req: Request, res: Response) => {
+    async (_req: Request, res: Response) => {
       try {
-        const fileName = req.params["fileName"] ?? "hello-world.txt";
+        const fileName = "hello-world.txt";
         const fileBuffer = await storage.downloadFile(fileName);
         res.setHeader(
           "Content-Disposition",
@@ -82,9 +82,9 @@ export function createHelloWorldRouter(
 
   router.get(
     "/files/upload-url/:fileName",
-    async (req: Request, res: Response) => {
+    async (_req: Request, res: Response) => {
       try {
-        const fileName = req.params["fileName"] ?? "hello-world.txt";
+        const fileName = "hello-world.txt";
         const uploadUrl = await storage.getUploadUrl(fileName);
         res.json({ fileName, uploadUrl });
       } catch (error) {
@@ -96,9 +96,9 @@ export function createHelloWorldRouter(
 
   router.get(
     "/files/download-url/:fileName",
-    async (req: Request, res: Response) => {
+    async (_req: Request, res: Response) => {
       try {
-        const fileName = req.params["fileName"] ?? "hello-world.txt";
+        const fileName = "hello-world.txt";
         const downloadUrl = await storage.getDownloadUrl(fileName);
         res.json({ fileName, downloadUrl });
       } catch (error) {
