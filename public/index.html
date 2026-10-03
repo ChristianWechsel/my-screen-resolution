@@ -3,14 +3,123 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello World</title>
+    <title>Screen Resolution & Viewport</title>
     <link rel="stylesheet" href="/css/index.css" />
   </head>
   <body>
-    <main>
-      <h1>Hello World</h1>
-      <p>Welcome to your new server!</p>
-    </main>
+    <div class="app-container">
+      <header class="app-header">
+        <div class="live-indicator" role="status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Live Update</span>
+        </div>
+        <h1>Screen Resolution</h1>
+        <p class="subtitle">
+          Real-time display of your current window and screen dimensions
+        </p>
+      </header>
+
+      <main>
+        <section class="hero-card" aria-label="Current browser window">
+          <span class="hero-label">Current Window Size (Viewport)</span>
+          <div class="hero-value">
+            <span id="viewport-dimensions">0 × 0</span>
+            <span class="unit">px</span>
+          </div>
+          <div class="hero-meta">
+            <span class="hero-meta-item">
+              Aspect Ratio: <strong id="viewport-aspect-ratio">-</strong>
+            </span>
+            <span class="meta-divider">•</span>
+            <span class="hero-meta-item">
+              Category: <strong id="viewport-breakpoint">-</strong>
+            </span>
+          </div>
+        </section>
+
+        <section class="metrics-grid" aria-labelledby="details-heading">
+          <h2 id="details-heading" class="sr-only">
+            Detailed screen and window metrics
+          </h2>
+          <article class="metric-card">
+            <header class="card-header">
+              <h2>Browser Window (Viewport)</h2>
+            </header>
+            <dl class="metric-list">
+              <div class="metric-row">
+                <dt>Width (CSS)</dt>
+                <dd><span id="vp-width">0</span> px</dd>
+              </div>
+              <div class="metric-row">
+                <dt>Height (CSS)</dt>
+                <dd><span id="vp-height">0</span> px</dd>
+              </div>
+              <div class="metric-row">
+                <dt>Aspect Ratio</dt>
+                <dd id="vp-ratio">-</dd>
+              </div>
+              <div class="metric-row">
+                <dt>Total Pixels</dt>
+                <dd id="vp-total-pixels">-</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="metric-card">
+            <header class="card-header">
+              <h2>Display (Screen)</h2>
+            </header>
+            <dl class="metric-list">
+              <div class="metric-row">
+                <dt>CSS Resolution</dt>
+                <dd id="screen-dimensions">0 × 0 px</dd>
+              </div>
+              <div class="metric-row">
+                <dt>Physical Resolution</dt>
+                <dd id="screen-physical">0 × 0 px</dd>
+              </div>
+              <div class="metric-row">
+                <dt>Display Aspect Ratio</dt>
+                <dd id="screen-ratio">-</dd>
+              </div>
+              <div class="metric-row">
+                <dt>Color Depth</dt>
+                <dd id="screen-color-depth">-</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="metric-card">
+            <header class="card-header">
+              <h2>Available Screen Space</h2>
+            </header>
+            <dl class="metric-list">
+              <div class="metric-row">
+                <dt>Available Width</dt>
+                <dd><span id="avail-width">0</span> px</dd>
+              </div>
+              <div class="metric-row">
+                <dt>Available Height</dt>
+                <dd><span id="avail-height">0</span> px</dd>
+              </div>
+              <div class="metric-row">
+                <dt>Orientation</dt>
+                <dd id="screen-orientation">-</dd>
+              </div>
+              <div class="metric-row">
+                <dt>Device Pixel Ratio (DPR)</dt>
+                <dd id="device-pixel-ratio">-</dd>
+              </div>
+            </dl>
+          </article>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <p>Values update automatically whenever the window is resized.</p>
+      </footer>
+    </div>
+
     <script src="/js/index.js"></script>
   </body>
 </html>
