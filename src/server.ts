@@ -4,12 +4,10 @@ import helmet from "helmet";
 import type { Database } from "./database/db.js";
 import { createRequestLogger } from "./middleware/request-logger.js";
 import { createHelloWorldRouter } from "./routes/hello-world.js";
-import type { Storage } from "./storage/storage.js";
 
 export async function createApp(
   logger: Logger,
   db: Database,
-  storage: Storage,
 ): Promise<express.Express> {
   const app = express();
   app.set("trust proxy", 1);
@@ -23,16 +21,15 @@ export async function createApp(
       },
     }),
   );
+  app.use(createRequestLogger(logger));
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
   app.use(express.static("public"));
-  app.use(createRequestLogger(logger));
 
   await db.connect();
   logger.info("Database connected", createApp.name);
 
-  app.use("/api/hello-world", createHelloWorldRouter(db, storage, logger));
-  app.use("/hello-world", createHelloWorldRouter(db, storage, logger));
+  app.use("/hello-world", createHelloWorldRouter(db, logger));
 
   return app;
 }

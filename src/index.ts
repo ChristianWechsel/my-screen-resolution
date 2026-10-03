@@ -1,11 +1,7 @@
-import { db, env, logger, storage } from "./container.js";
+import { db, env, logger } from "./container.js";
 import { createApp } from "./server.js";
 
-if (env.getValue("NODE_ENV") !== "production") {
-  logger.warn("!!!Auth is deactivated in non-production mode.!!!");
-}
-
-const app = await createApp(logger, db, storage);
+const app = await createApp(logger, db);
 
 const port = env.getValue("PORT");
 const server = app.listen(port, () => {
