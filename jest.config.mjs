@@ -105,6 +105,9 @@ const config = {
     // A preset that is used as a base for Jest's configuration
     // preset: undefined,
 
+    // Allows the test suite to pass when no files are found
+    passWithNoTests: true,
+
     // Run tests from one or more projects
     projects: [
         {
