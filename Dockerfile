@@ -3,8 +3,8 @@ FROM node:24-slim AS builder
 
 WORKDIR /app
 
-COPY package*.json .npmrc ./
-RUN npx --yes google-artifactregistry-auth && npm ci && rm -f /root/.npmrc /app/.npmrc
+COPY package*.json ./
+RUN npm ci
 
 COPY tsconfig.json tsconfig.prod.json ./
 COPY bin/ ./bin/
@@ -19,8 +19,8 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 # Install only production dependencies
-COPY package*.json .npmrc ./
-RUN npx --yes google-artifactregistry-auth && npm ci --omit=dev && rm -f /root/.npmrc /app/.npmrc
+COPY package*.json ./
+RUN npm ci --omit=dev
 
 # Copy compiled TypeScript output
 COPY --from=builder /app/dist ./dist

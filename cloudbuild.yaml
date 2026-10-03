@@ -20,7 +20,7 @@ steps:
         echo "$$VERSION" > /workspace/_version.txt
         echo "Building version $$VERSION"
 
-  - name: "gcr.io/cloud-builders/gcloud"
+  - name: "gcr.io/cloud-builders/docker"
     entrypoint: "bash"
     args:
       - "-c"
