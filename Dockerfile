@@ -28,6 +28,8 @@ COPY --from=builder /app/dist ./dist
 # Copy static frontend assets
 COPY public/ ./public/
 
+RUN mkdir -p /app/logs && chown -R node:node /app/logs
+
 USER node
 
 EXPOSE 8080

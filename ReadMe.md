@@ -181,7 +181,7 @@ sudo docker ps
 
 # Follow container logs
 cd /opt/<app-name>
-sudo docker compose logs -f
+docker compose logs -f
 ```
 
 ---
