@@ -1,7 +1,7 @@
-import { db, env, logger } from "./container.js";
+import { env, logger } from "./container.js";
 import { createApp } from "./server.js";
 
-createApp(logger, db).then((app) => {
+createApp(logger).then((app) => {
   const port = env.getValue("PORT");
   const server = app.listen(port, () => {
     logger.info(`Server is running on http://localhost:${port}`);
