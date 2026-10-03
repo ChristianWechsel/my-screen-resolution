@@ -1,0 +1,61 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+write_files:
+  - path: /opt/${app_name}/docker-compose.yml
+    permissions: "0644"
+    owner: root:root
+    encoding: b64
+    content: ${base64encode(docker_compose_content)}
+
+  - path: /opt/${app_name}/nginx.conf
+    permissions: "0644"
+    owner: root:root
+    encoding: b64
+    content: ${base64encode(nginx_conf_content)}
+
+  - path: /opt/${app_name}/.env
+    permissions: "0644"
+    owner: root:root
+    encoding: b64
+    content: ${base64encode(env_file_content)}
+
+  - path: /opt/${app_name}/init.sh
+    permissions: "0755"
+    owner: root:root
+    encoding: b64
+    content: ${base64encode(init_sh_content)}
+
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+  - certbot
+
+runcmd:
+  # === Keyrings-Verzeichnis ==
+  - install -m 0755 -d /etc/apt/keyrings
+
+  # === Docker Repo ===
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  - chmod a+r /etc/apt/keyrings/docker.asc
+  - echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+
+  # === install all ===
+  - apt-get update
+  - apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+  - su - ${user} -c "gcloud auth configure-docker ${location}-docker.pkg.dev --quiet"
+
+  # Docker aktivieren und Rechte setzen
+  - systemctl enable docker
+  - systemctl start docker
+  - usermod -aG docker ${user}
+  - chown -R ${user}:${user} /opt/${app_name}
+
+  # Webroot-Verzeichnis für Certbot vorbereiten
+  - mkdir -p /var/www/certbot
+  - chown -R ${user}:${user} /var/www/certbot

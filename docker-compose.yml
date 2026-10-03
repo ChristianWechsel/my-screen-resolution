@@ -1,0 +1,16 @@
+name: ${app_name}
+services:
+  server:
+    image: ${location}-docker.pkg.dev/${project_id}/${repository}/${app_name}
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+  reverse-proxy:
+    image: nginx:1.31.6
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro

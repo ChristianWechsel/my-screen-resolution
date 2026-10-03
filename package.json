@@ -1,0 +1,52 @@
+{
+  "name": "@christian-wechsel/my-screen-resolution",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "npm run build-test && jest",
+    "clean": "./bin/clean.sh",
+    "prebuild": "npm run clean",
+    "build": "tsc --project tsconfig.json",
+    "prebuild-test": "npm run clean",
+    "build-test": "tsc --project tsconfig.test.json",
+    "prebuild-prod": "npm run clean",
+    "build-prod": "tsc --project tsconfig.prod.json",
+    "prepublishOnly": "npm run build-prod",
+    "test:unit": "set NODE_ENV=test && npm run build-test && jest --selectProjects Unit",
+    "test:int": "set NODE_ENV=test && npm run build-test && jest --selectProjects Integration",
+    "debug": "NODE_ENV=development node --inspect-brk dist/index.js",
+    "dev": "NODE_ENV=development tsx watch src/index.ts",
+    "start": "NODE_ENV=productionnode dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChristianWechsel/my-screen-resolution.git"
+  },
+  "keywords": [],
+  "author": "Christian Wechsel <npm@christian-wechsel.com>",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/ChristianWechsel/my-screen-resolution/issues"
+  },
+  "homepage": "https://github.com/ChristianWechsel/my-screen-resolution#readme",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@christian-wechsel/logger": "^0.2.0",
+    "@christian-wechsel/typed-env-handler": "^1.0.13",
+    "@google-cloud/firestore": "^9.3.1",
+    "@google-cloud/secret-manager": "^7.1.1",
+    "@google-cloud/storage": "^8.2.0",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.4",
+    "express": "^5.2.1",
+    "helmet": "^8.3.0",
+    "jest": "^30.5.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

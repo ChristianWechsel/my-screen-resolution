@@ -1,0 +1,9 @@
+/node_modules
+/dist
+.npmrc
+.terraform*
+terraform*
+!terraform.tfvars.example
+!terraform.tfvars.template
+.env
+!.env.example
